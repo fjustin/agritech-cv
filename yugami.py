@@ -23,11 +23,8 @@ def yugami():
 
 
 def extract_color (src,h_th_low,h_th_up,s_th,v_th):
-    hsv = cv2.cvtColor(src, cv2.COLOR_BGR2HSV)   # HSV変換
-    # 青色のHSV範囲
-    #hsv_min = np.array([80, 150, 0])
-    #hsv_max = np.array([150, 255, 255])
-
+    # HSV変換
+    hsv = cv2.cvtColor(src, cv2.COLOR_BGR2HSV)
     h,s,v = cv2.split(hsv)
 
 
@@ -57,18 +54,30 @@ def extract_color (src,h_th_low,h_th_up,s_th,v_th):
 
 
 if __name__ == '__main__':
+    # yugamiメソッド実行
     yugami()
 
+    # 生成された画像を読み込み
     right_image = cv2.imread('./sources/yugami.png')
 
+    # 緑色だけを抽出
     green_image = extract_color(right_image,0,178,50,0)
+
+    # 緑色を抽出後の画像を読み込み
     m = cv2.countNonZero(green_image)
     h, w = green_image.shape
+
+    # 画像の面積と緑色の割合を計算
     per = round(100*float(m)/(w * h),1)
+
+    # 計算結果を表示
     print("Moment[px]:",m)
     print("Percent[%]:", per)
 
+    # 最終的な画像を表示、保存
     cv2.imshow("Mask",green_image)
     cv2.imwrite('./sources/agri.png',green_image)
     cv2.waitKey(0)
+
+    # 全てのウィンドウを閉じる
     cv2.destroyAllWindows()
