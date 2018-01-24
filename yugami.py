@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def yugami():
     # 画像を読み込む
-    img = cv2.imread('./sources/hata.png')
+    img = cv2.imread('./sources/hata2.png')
 
     # 画像の横と縦の長さを切り出す
     rows,cols,ch = img.shape
